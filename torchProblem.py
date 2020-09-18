@@ -1,35 +1,4 @@
 from simpleai.search import astar,SearchProblem
-# class State(SearchProblem):
-
-#     GOAL = [1,3,6,8,12]
-
-#     def __init__(self,a : int,b : int,limit : int,finishSide : list,initSide : list):
-#         self.a          = a
-#         self.b          = b
-#         self.limit      = limit
-#         self.finishSide = finishSide
-#         self.initSide   = initSide
-
-#     def is_goal(self):
-#         return self.finishSide == State.GOAL and self.limit >= 0
-
-    
-
-#     def copy(self) -> State:
-#         return State(self.a,self.b,self.limit,self.finishSide,self.initSide)
-
-#     def saveState(self) -> dict:
-#         return {
-#             "a"             : self.a,
-#             "b"             : self.b,
-#             "limit"         : self.limit,
-#             "finishSide"    : self.finishSide,
-#             "initSide"      : self.initSide,
-#         }
-
-#     @classmethod
-#     def fromDict(cls,dic : dict) -> State:
-#         return cls(dic["a"],dic["b"],dic["limit"],dic["finishSide"],dic["initSide"])
 
 class Party:
     def __init__(self,bSide : list,aSide : list,cost : int,direction : bool):
