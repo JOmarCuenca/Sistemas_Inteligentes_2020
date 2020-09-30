@@ -1,3 +1,8 @@
+"""
+Credit to the original Coder
+https://github.com/mntfr/Conecta-4
+"""
+
 import numpy as np
 import pygame
 import sys
