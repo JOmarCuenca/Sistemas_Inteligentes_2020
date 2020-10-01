@@ -200,7 +200,7 @@ def dibujarTablero(tablero):
 def deepSearch(tablero, profundidad, direction):
 	movimientosPosibles = getMovimientosValidos(tablero)
 	esFinal = esMoviementoFinal(tablero)
-	if profundidad > 2 or esFinal:
+	if profundidad > 3 or esFinal:
 		if esFinal:
 			if checarVictoria(tablero, PIEZA_IA):
 				return (None, 100000000000000)
