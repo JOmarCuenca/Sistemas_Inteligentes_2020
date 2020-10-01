@@ -130,21 +130,6 @@ def getMovimientosValidos(tablero):
 			posicionesValidas.append(col)
 	return posicionesValidas
 
-def escogerMejorMovimiento(tablero, pieza):
-	posValidas = getMovimientosValidos(tablero)
-	mejorPuntuacion = -10000
-
-	for col in posValidas:
-		renglon = getRenglonValido(tablero, col)
-		tableroTemporal = tablero.copy()
-		soltarPieza(tableroTemporal, renglon, col, pieza)
-		score = score_position(tableroTemporal, pieza)
-		if score > mejorPuntuacion:
-			mejorPuntuacion = score
-			mejorColumna = col
-
-	return mejorColumna
-
 def evaluarVentana(window, pieza):
 	puntuacion = 0
 	piezaDeOponente = PIEZAJUGADOR
@@ -212,6 +197,47 @@ def dibujarTablero(tablero):
 				pygame.draw.circle(pantalla, AMARILLO, (int(c*TAMCUADROS+TAMCUADROS/2), largo-int(r*TAMCUADROS+TAMCUADROS/2)), RADIO)
 	pygame.display.update()
 
+def deepSearch(tablero, profundidad, direction):
+	movimientosPosibles = getMovimientosValidos(tablero)
+	esFinal = esMoviementoFinal(tablero)
+	if profundidad > 2 or esFinal:
+		if esFinal:
+			if checarVictoria(tablero, PIEZA_IA):
+				return (None, 100000000000000)
+			elif checarVictoria(tablero, PIEZAJUGADOR):
+				return (None, -10000000000000)
+			else: 
+				return (None, 0)
+		else: # 
+			return (None, puntPosicion(tablero, PIEZA_IA))
+
+	if direction:
+		valor = -math.inf
+		columna = random.choice(movimientosPosibles)
+		for col in movimientosPosibles:
+			renglon = getRenglonValido(tablero, col)
+			copiaTablero = tablero.copy()
+			soltarPieza(copiaTablero, renglon, col, PIEZA_IA)
+			nuevaPuntuacion = deepSearch(copiaTablero,profundidad+1,False)[1]
+			if nuevaPuntuacion > valor:
+				valor = nuevaPuntuacion
+				columna = col
+		return columna, valor
+
+	else:
+		valor = math.inf
+		columna = random.choice(movimientosPosibles)
+		for col in movimientosPosibles:
+			renglon = getRenglonValido(tablero, col)
+			copiaTablero = tablero.copy()
+			soltarPieza(copiaTablero, renglon, col, PIEZA_IA)
+			nuevaPuntuacion = deepSearch(copiaTablero,profundidad+1,True)[1]
+			if nuevaPuntuacion < valor:
+				valor = nuevaPuntuacion
+				columna = col
+		return columna, valor
+	
+
 tablero = crearTablero()
 imprimirTablero(tablero)
 juegoTerminado = False
@@ -239,6 +265,7 @@ turno = IA
 #la profundidad esta relacionada con la dificultad
 #teoricamente si el primero turno es la IA 
 #y la profunidad es 6 no hay manera de ganarle
+minibool = False
 PROFUNDIDAD = 6
 
 while not juegoTerminado:
@@ -278,8 +305,13 @@ while not juegoTerminado:
 
 
 	#Turno inteligencia artificial
-	if turno == IA and not juegoTerminado:			
-		columna, puntuacion = minimax(tablero, PROFUNDIDAD, -math.inf, math.inf, True)
+	if turno == IA and not juegoTerminado:
+		columna = 0 
+		puntuacion = 0
+		if minibool:
+			columna, puntuacion = minimax(tablero, PROFUNDIDAD, -math.inf, math.inf, True)
+		else:
+			columna, puntuacion = deepSearch(tablero,0,True)
 
 		if movimientoValido(tablero, columna):
 			renglon = getRenglonValido(tablero, columna)
