@@ -197,6 +197,7 @@ def dibujarTablero(tablero):
 				pygame.draw.circle(pantalla, AMARILLO, (int(c*TAMCUADROS+TAMCUADROS/2), largo-int(r*TAMCUADROS+TAMCUADROS/2)), RADIO)
 	pygame.display.update()
 
+#Nuestro algoritmo de busqueda no informada
 def deepSearch(tablero, profundidad, direction):
 	movimientosPosibles = getMovimientosValidos(tablero)
 	esFinal = esMoviementoFinal(tablero)
@@ -265,7 +266,9 @@ turno = IA
 #la profundidad esta relacionada con la dificultad
 #teoricamente si el primero turno es la IA 
 #y la profunidad es 6 no hay manera de ganarle
-minibool = False
+
+minibool = "--hard" in sys.argv
+print(minibool)
 PROFUNDIDAD = 6
 
 while not juegoTerminado:
