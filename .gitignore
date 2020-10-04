@@ -1,3 +1,5 @@
 .vscode
 tareas/
 env/
+
+*.pdf

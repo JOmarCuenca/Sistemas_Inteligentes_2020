@@ -268,7 +268,6 @@ turno = IA
 #y la profunidad es 6 no hay manera de ganarle
 
 minibool = "--hard" in sys.argv
-print(minibool)
 PROFUNDIDAD = 6
 
 while not juegoTerminado:
