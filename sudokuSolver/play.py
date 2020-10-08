@@ -36,7 +36,7 @@ def parse_grid(grid):
     ## To start, every square can be any digit; then assign values from the grid.
     values = dict((s, digits) for s in squares)
     for s,d in grid_values(grid).items():
-        if d in digits and not assign(values, s, d):
+        if d in digits and not assign(values, s, d): 
             return False ## (Fail if we can't assign d to square s.)
     return values
 
@@ -110,6 +110,9 @@ def some(seq):
 grid2   = "4.....8.5.3..........7......2.....6.....8.4......1.......6.3.7.5..2.....1.4......"
 hard1   = ".....6....59.....82....8....45........3........6..3.54...325..6.................."
 hardest = "8..........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4.."
+easy    = "....6.9..85...42.6.1..89.73.....36.2394...1575.24.....73.65..2.6.59...31..8.1...."
+medium  = "6..3.9..5..46..1.979.8...6....5....7.2.....5.8....3....6...2.781.9..42..2..9.6..4"
+evil    = "21.5...7..9....8......7...66..8.7.....3...9.....1.5..73...1......2....6..5...3.29"
 
 def analyzeSolution(grid):
     print("Analyzing the following grid")
@@ -122,9 +125,15 @@ def analyzeSolution(grid):
     print()
 
 if __name__ == "__main__":
+    # print("-----------------------------EASY SUDOKU-----------------------------------------")
+    # analyzeSolution(grid2)
+    # print("-----------------------------MULTIPLE SOLUTIONS----------------------------------")
+    # analyzeSolution(hard1)
     print("-----------------------------EASY SUDOKU-----------------------------------------")
-    analyzeSolution(grid2)
-    print("-----------------------------MULTIPLE SOLUTIONS----------------------------------")
-    analyzeSolution(hard1)
+    analyzeSolution(easy)
+    print("-----------------------------MEDIUM SUDOKU---------------------------------------")
+    analyzeSolution(medium)
+    print("------------------------------------EVIL SUDOKU----------------------------------")
+    analyzeSolution(evil)
     print("--------------------HARDEST SUDOKU IN EXISTENCE----------------------------------")
     analyzeSolution(hardest)
