@@ -90,9 +90,19 @@ def display(values):
 
 def solve(grid): return search(parse_grid(grid))
 
+def impossible(values):
+    # print(values)
+    # print("--------------------------NEXT STEP---------------------")
+    # display(values)
+    results = [{}]*9
+    for column in cols:
+        for row in rows:
+            results[int(column)-1][str(values[row+column])]
+    return False
+
 def search(values):
     "Using depth-first search and propagation, try all possible values."
-    if values is False:
+    if values is False or impossible(values):
         return False ## Failed earlier
     if all(len(values[s]) == 1 for s in squares): 
         return values ## Solved!
@@ -126,13 +136,14 @@ def analyzeSolution(grid):
 if __name__ == "__main__":
     # print("-----------------------------EASY SUDOKU-----------------------------------------")
     # analyzeSolution(grid2)
-    print("-----------------------------EASY SUDOKU-----------------------------------------")
-    analyzeSolution(easy)
-    print("-----------------------------MEDIUM SUDOKU---------------------------------------")
-    analyzeSolution(medium)
-    print("------------------------------------EVIL SUDOKU----------------------------------")
-    analyzeSolution(evil)
-    print("--------------------HARDEST SUDOKU IN EXISTENCE----------------------------------")
-    analyzeSolution(hardest)
-    print("-----------------------------MULTIPLE SOLUTIONS----------------------------------")
-    analyzeSolution(hard1)
+    # print("-----------------------------EASY SUDOKU-----------------------------------------")
+    # analyzeSolution(easy)
+    # print("-----------------------------MEDIUM SUDOKU---------------------------------------")
+    # analyzeSolution(medium)
+    # print("------------------------------------EVIL SUDOKU----------------------------------")
+    # analyzeSolution(evil)
+    # print("--------------------HARDEST SUDOKU IN EXISTENCE----------------------------------")
+    # analyzeSolution(hardest)
+    # print("-----------------------------MULTIPLE SOLUTIONS----------------------------------")
+    # analyzeSolution(hard1)
+    d = {}

@@ -1,0 +1,4 @@
+numpy==1.19.2
+pkg-resources==0.0.0
+pygame==1.9.6
+simpleai==0.8.2
